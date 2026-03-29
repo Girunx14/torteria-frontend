@@ -90,7 +90,7 @@ function MenuPage() {
 
         {/* Facebook Floating Button */}
         <a
-          href="https://facebook.com/tutorteria"
+          href="https://www.facebook.com/share/1JBt5tK4ez/?mibextid=wwXIfr"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-[#1877F2] text-white p-3.5 rounded-full shadow-lg shadow-[#1877F2]/40 hover:scale-110 hover:bg-[#166fe5] transition-all duration-300 flex items-center justify-center group cursor-pointer relative"
@@ -115,7 +115,7 @@ function MenuPage() {
 
         {/* WhatsApp Floating Button */}
         <a
-          href="https://wa.me/529931669653?text=Hola,%20me%20gustar%C3%ADa%20hacer%20un%20pedido%20de%20La%20Torter%C3%ADa"
+          href="https://wa.me/529361929487?text=Hola,%20me%20gustar%C3%ADa%20hacer%20un%20pedido%20de%20La%20Torter%C3%ADa"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-[#25D366] text-white p-4 rounded-full shadow-lg shadow-[#25D366]/40 hover:scale-110 hover:bg-[#20ba56] transition-all duration-300 flex items-center justify-center group cursor-pointer relative"
