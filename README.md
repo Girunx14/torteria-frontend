@@ -1,16 +1,67 @@
-# React + Vite
+# Torteria Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interfaz web construida con React y Vite para la gestión visual del menú, órdenes y estadísticas de La Tortería.
 
-Currently, two official plugins are available:
+## Tecnologías
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** — UI
+- **Vite** — bundler
+- **Tailwind CSS** — estilos
+- **React Router** — navegación
+- **TanStack Query** — caché y sincronización con la API
+- **Zustand** — estado global de autenticación
+- **Axios** — llamadas HTTP
+- **Recharts** — gráficas del dashboard
+- **Lucide React** — íconos
+- **React Hot Toast** — notificaciones
 
-## React Compiler
+## Requisitos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js 20+
+- El backend `torteria-backend` corriendo en `http://localhost:8000`
 
-## Expanding the ESLint configuration
+## Instalación
+```bash
+git clone https://github.com/tuusuario/torteria-frontend.git
+cd torteria-frontend
+npm install
+cp .env.example .env
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Configuración
+
+Edita `.env`:
+```env
+VITE_API_URL=http://localhost:8000
+```
+
+## Estructura
+```
+src/
+├── components/
+│   ├── ui/          ← StatCard, LoadingSpinner, ErrorMessage
+│   ├── layout/      ← AdminLayout, MenuNavbar
+│   ├── menu/        ← ProductCard, CategoryTabs
+│   └── admin/       ← ProductModal, NewOrderModal
+├── pages/
+│   ├── MenuPage.jsx
+│   ├── LoginPage.jsx
+│   └── admin/
+│       ├── DashboardPage.jsx
+│       ├── ProductsPage.jsx
+│       └── OrdersPage.jsx
+├── hooks/           ← useProducts, useCategories, useOrders, useStats
+├── services/        ← api.js
+└── store/           ← authStore.js
+```
+
+## Páginas
+
+| Ruta | Acceso | Descripción |
+|------|--------|-------------|
+| `/` | Público | Menú visual con categorías y productos |
+| `/login` | Público | Login del administrador |
+| `/admin/dashboard` | Admin | KPIs, gráfica de ventas y top productos |
+| `/admin/products` | Admin | CRUD de productos con imágenes |
+| `/admin/orders` | Admin | Gestión de órdenes y cambio de estado |
