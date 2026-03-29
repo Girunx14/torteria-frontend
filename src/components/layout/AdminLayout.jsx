@@ -35,12 +35,14 @@ function AdminLayout() {
         {/* Logo */}
         <div className="p-6 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-[#C0392B] rounded-lg flex items-center justify-center">
-              <ChefHat size={18} className="text-white" />
-            </div>
+            <img 
+              src="/logo.png" 
+              alt="Logo Tortería" 
+              className="w-10 h-10 object-contain bg-white rounded-lg p-[2px] shadow-sm transform transition-transform hover:rotate-2 hover:scale-105"
+            />
             <div>
-              <p className="font-bold text-sm leading-tight">Admin Panel</p>
-              <p className="text-white/40 text-xs">La Tortería Management</p>
+              <p className="font-bold text-sm leading-tight text-[#C0392B] tracking-wide">Tortería 18</p>
+              <p className="text-white/40 text-xs font-medium">Panel de control</p>
             </div>
           </div>
         </div>

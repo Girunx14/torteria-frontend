@@ -40,7 +40,7 @@ function LoginPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-[#C0392B] rounded-2xl mb-4">
             <span className="text-white text-2xl font-bold">LT</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">La Tortería</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Torteria 18</h1>
           <p className="text-gray-500 text-sm mt-1">Panel de administración</p>
         </div>
 
@@ -80,7 +80,7 @@ function LoginPage() {
         </div>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          © 2024 La Tortería. Crafted with Sabor.
+          2026 Torteria 18. Hecho con amor.
         </p>
       </div>
     </div>

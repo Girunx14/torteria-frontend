@@ -7,13 +7,15 @@ function MenuNavbar() {
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#C0392B] rounded-xl flex items-center justify-center">
-            <ChefHat size={20} className="text-white" />
-          </div>
-          <div>
-            <p className="font-bold text-gray-900 leading-tight">La Tortería</p>
-            <p className="text-xs text-gray-400">Hecho con sabor real</p>
+        <Link to="/" className="flex items-center gap-3 group">
+          <img 
+            src="/logo.png" 
+            alt="Torteria 18 Logo" 
+            className="w-14 h-14 object-contain transition-transform group-hover:scale-105" 
+          />
+          <div className="flex flex-col">
+            <p className="font-black text-xl text-gray-900 leading-none">TORTERIA 18</p>
+            <p className="text-xs font-medium text-[#C0392B] italic">La casa de la abuela</p>
           </div>
         </Link>
 
