@@ -1,7 +1,7 @@
 // src/store/authStore.js
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-import { authService } from "../services/api"
+import api from "../services/api"
 
 const useAuthStore = create(
     persist(
@@ -42,11 +42,6 @@ const useAuthStore = create(
         }),
         {
             name: "auth-storage",
-            partialState: (state) => ({
-                user: state.user,
-                token: state.token,
-                isAuthenticated: state.isAuthenticated,
-            }),
         }
     )
 )
