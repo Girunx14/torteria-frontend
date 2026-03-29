@@ -80,7 +80,7 @@ function MenuPage() {
       <footer className="border-t border-gray-200 mt-16 pb-32 md:pb-16">
         <div className="max-w-6xl mx-auto px-6 py-8 flex justify-center text-center">
           <p className="text-sm text-gray-500 font-medium">
-            © 2024 La Tortería. Hecho con amor.
+            © 2026 La Tortería. Hecho con amor.
           </p>
         </div>
       </footer>
