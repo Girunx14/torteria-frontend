@@ -1,22 +1,173 @@
-// src/pages/admin/ProductsPage.jsx
-import { useProducts } from "../../hooks/useProducts"
+import { useState } from "react"
+import { Plus, Pencil, Trash2, ImageOff, ToggleLeft, ToggleRight } from "lucide-react"
+import { useProducts, useDeleteProduct, useUpdateProduct } from "../../hooks/useProducts"
+import ProductModal from "../../components/admin/ProductModal"
+import LoadingSpinner from "../../components/ui/LoadingSpinner"
+import ErrorMessage from "../../components/ui/ErrorMessage"
 
 function ProductsPage() {
-    const { data: products, isLoading, isError } = useProducts()
+  const { data: products = [], isLoading, isError } = useProducts({ only_available: false })
+  const deleteProduct = useDeleteProduct()
+  const updateProduct = useUpdateProduct()
 
-    console.log("STATE:", { products, isLoading, isError })
+  const [showModal, setShowModal] = useState(false)
+  const [editingProduct, setEditingProduct] = useState(null)
 
-    if (isLoading) return <div className="p-8">Cargando...</div>
-    if (isError) return <div className="p-8 text-red-500">Error al cargar</div>
+  const handleEdit = (product) => {
+    setEditingProduct(product)
+    setShowModal(true)
+  }
 
-    return (
-        <div className="p-8">
-            <h1 className="text-2xl font-bold mb-4">Productos</h1>
-            <pre className="text-xs bg-gray-100 p-4 rounded">
-                {JSON.stringify(products, null, 2)}
-            </pre>
+  const handleCreate = () => {
+    setEditingProduct(null)
+    setShowModal(true)
+  }
+
+  const handleClose = () => {
+    setShowModal(false)
+    setEditingProduct(null)
+  }
+
+  const handleDelete = (product) => {
+    if (confirm(`¿Eliminar "${product.name}"? Esta acción no se puede deshacer.`)) {
+      deleteProduct.mutate(product.id)
+    }
+  }
+
+  const handleToggleAvailable = (product) => {
+    updateProduct.mutate({
+      id: product.id,
+      data: { is_available: !product.is_available },
+    })
+  }
+
+  return (
+    <div className="p-8">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
+            Catálogo de menú
+          </p>
+          <h1 className="text-2xl font-bold text-gray-900">Productos</h1>
         </div>
-    )
+        <button
+          onClick={handleCreate}
+          className="flex items-center gap-2 bg-[#C0392B] hover:bg-[#96281B] text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors shadow-sm"
+        >
+          <Plus size={18} />
+          Nuevo Producto
+        </button>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 mb-8">
+        <div className="bg-white rounded-2xl p-5 shadow-sm">
+          <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Total productos</p>
+          <p className="text-3xl font-bold text-gray-900">{products.length}</p>
+        </div>
+        <div className="bg-white rounded-2xl p-5 shadow-sm">
+          <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Más vendido</p>
+          <p className="text-lg font-bold text-gray-900 truncate">
+            {products[0]?.name || "Sin datos"}
+          </p>
+        </div>
+      </div>
+
+      {isLoading && <LoadingSpinner text="Cargando productos..." />}
+      {isError && <ErrorMessage message="No se pudieron cargar los productos." />}
+
+      {!isLoading && !isError && (
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-100">
+                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Producto</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Categoría</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Precio</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Disponible</th>
+                <th className="text-right px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Acciones</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-50">
+              {products.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="text-center py-16 text-gray-400 text-sm">
+                    No hay productos registrados. Crea el primero.
+                  </td>
+                </tr>
+              ) : (
+                products.map((product) => (
+                  <tr key={product.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
+                          {product.image_url ? (
+                            <img
+                              src={`${import.meta.env.VITE_API_URL}${product.image_url}`}
+                              alt={product.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <ImageOff size={16} className="text-gray-300" />
+                            </div>
+                          )}
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-800">{product.name}</p>
+                          <p className="text-xs text-gray-400 truncate max-w-xs">
+                            {product.description || "Sin descripción"}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="inline-flex px-2.5 py-1 bg-[#FDF6EC] text-[#C0392B] text-xs font-medium rounded-lg">
+                        Cat. {product.category_id}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="text-sm font-bold text-gray-900">
+                        ${Number(product.price).toFixed(2)}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <button onClick={() => handleToggleAvailable(product)} className="transition-colors">
+                        {product.is_available ? (
+                          <ToggleRight size={28} className="text-[#C0392B]" />
+                        ) : (
+                          <ToggleLeft size={28} className="text-gray-300" />
+                        )}
+                      </button>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => handleEdit(product)}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-blue-50 text-blue-500 transition-colors"
+                        >
+                          <Pencil size={15} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(product)}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 text-red-400 transition-colors"
+                        >
+                          <Trash2 size={15} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {showModal && (
+        <ProductModal product={editingProduct} onClose={handleClose} />
+      )}
+    </div>
+  )
 }
 
 export default ProductsPage
