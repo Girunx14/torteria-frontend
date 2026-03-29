@@ -11,12 +11,20 @@ const useAuthStore = create(
             isAuthenticated: false,
 
             login: async (username, password) => {
-                const response = await authService.login(username, password)
-                const { access_token } = response.data
+                const params = new URLSearchParams()
+                params.append("username", username)
+                params.append("password", password)
 
+                const response = await api.post("/auth/login", params, {
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                })
+
+                const { access_token } = response.data
                 localStorage.setItem("token", access_token)
 
-                const meResponse = await authService.me()
+                const meResponse = await api.get("/auth/me", {
+                    headers: { Authorization: `Bearer ${access_token}` },
+                })
 
                 set({
                     token: access_token,
