@@ -8,6 +8,7 @@ import MenuPage from "./pages/MenuPage"
 import LoginPage from "./pages/LoginPage"
 import DashboardPage from "./pages/admin/DashboardPage"
 import ProductsPage from "./pages/admin/ProductsPage"
+import CategoriesPage from "./pages/admin/CategoriesPage"
 import OrdersPage from "./pages/admin/OrdersPage"
 
 // Layout del admin
@@ -41,6 +42,7 @@ function App() {
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="products" element={<ProductsPage />} />
+          <Route path="categories" element={<CategoriesPage />} />
           <Route path="orders" element={<OrdersPage />} />
         </Route>
 

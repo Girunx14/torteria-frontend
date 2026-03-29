@@ -87,27 +87,27 @@ function MenuPage() {
 
       {/* Control de Botones Flotantes (Redes y Contacto) */}
       <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 flex flex-col gap-4 items-center">
-      
+
         {/* Facebook Floating Button */}
-        <a 
-          href="https://facebook.com/tutorteria" 
-          target="_blank" 
+        <a
+          href="https://facebook.com/tutorteria"
+          target="_blank"
           rel="noopener noreferrer"
           className="bg-[#1877F2] text-white p-3.5 rounded-full shadow-lg shadow-[#1877F2]/40 hover:scale-110 hover:bg-[#166fe5] transition-all duration-300 flex items-center justify-center group cursor-pointer relative"
           aria-label="Síguenos en Facebook"
         >
           <svg
-             xmlns="http://www.w3.org/2000/svg"
-             width="26"
-             height="26"
-             viewBox="0 0 24 24"
-             fill="currentColor"
-             className="w-[26px] h-[26px] border-none"
-             stroke="none"
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-[26px] h-[26px] border-none"
+            stroke="none"
           >
-             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
           </svg>
-          
+
           <span className="absolute right-full mr-4 bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg">
             ¡Síguenos en Facebook!
           </span>

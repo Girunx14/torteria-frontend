@@ -24,3 +24,27 @@ export function useCreateCategory() {
         onError: () => toast.error("Error al crear categoría"),
     })
 }
+
+export function useUpdateCategory() {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: ({ id, data }) => categoryService.update(id, data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["categories"] })
+            toast.success("Categoría actualizada")
+        },
+        onError: () => toast.error("Error al actualizar categoría"),
+    })
+}
+
+export function useDeleteCategory() {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: (id) => categoryService.delete(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["categories"] })
+            toast.success("Categoría eliminada")
+        },
+        onError: () => toast.error("Error al eliminar categoría"),
+    })
+}

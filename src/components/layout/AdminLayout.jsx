@@ -9,6 +9,7 @@ import {
   ChefHat,
   Menu,
   X,
+  Tags,
 } from "lucide-react"
 import toast from "react-hot-toast"
 import useAuthStore from "../../store/authStore"
@@ -16,6 +17,7 @@ import useAuthStore from "../../store/authStore"
 const navItems = [
   { to: "/admin/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/admin/products", icon: ShoppingBag, label: "Productos" },
+  { to: "/admin/categories", icon: Tags, label: "Categorías" },
   { to: "/admin/orders", icon: ClipboardList, label: "Órdenes" },
 ]
 
