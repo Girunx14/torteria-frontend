@@ -1,11 +1,14 @@
 // src/components/layout/AdminLayout.jsx
-import { Outlet, NavLink, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom"
 import {
   LayoutDashboard,
   ShoppingBag,
   ClipboardList,
   LogOut,
   ChefHat,
+  Menu,
+  X,
 } from "lucide-react"
 import toast from "react-hot-toast"
 import useAuthStore from "../../store/authStore"
@@ -18,7 +21,14 @@ const navItems = [
 
 function AdminLayout() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { user, logout } = useAuthStore()
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
+  // Cerrar sidebar al cambiar de ruta
+  useEffect(() => {
+    setIsSidebarOpen(false)
+  }, [location.pathname])
 
   const handleLogout = () => {
     logout()
@@ -29,8 +39,18 @@ function AdminLayout() {
   return (
     <div className="flex min-h-screen bg-gray-100">
 
+      {/* Overlay para móvil */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-20 md:hidden transition-opacity"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="w-64 bg-[#1A1A1A] text-white flex flex-col fixed h-full z-10">
+      <aside className={`w-64 bg-[#1A1A1A] text-white flex flex-col fixed h-full z-30 transition-transform duration-300 ease-in-out ${
+        isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      }`}>
 
         {/* Logo */}
         <div className="p-6 border-b border-white/10">
@@ -53,6 +73,7 @@ function AdminLayout() {
             <NavLink
               key={to}
               to={to}
+              onClick={() => setIsSidebarOpen(false)}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${isActive
                   ? "bg-[#C0392B] text-white"
@@ -93,7 +114,25 @@ function AdminLayout() {
       </aside>
 
       {/* Contenido principal */}
-      <main className="flex-1 ml-64 min-h-screen">
+      <main className="flex-1 md:ml-64 min-h-screen flex flex-col max-w-full overflow-x-hidden">
+        {/* Header móvil */}
+        <header className="md:hidden flex items-center justify-between p-4 bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+          <div className="flex items-center gap-2">
+            <img 
+              src="/logo.png" 
+              alt="Logo Tortería" 
+              className="w-8 h-8 object-contain bg-[#1A1A1A] rounded-md p-1 shadow-sm"
+            />
+            <span className="font-bold text-sm text-[#1A1A1A]">Panel Admin</span>
+          </div>
+          <button 
+            onClick={() => setIsSidebarOpen(true)}
+            className="p-2 -mr-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <Menu size={24} />
+          </button>
+        </header>
+
         <Outlet />
       </main>
     </div>

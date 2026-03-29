@@ -42,10 +42,10 @@ function DashboardPage() {
   })) || []
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
 
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 md:mb-8 gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Panel de Control</h1>
           <p className="text-sm text-gray-400 mt-0.5">
@@ -54,7 +54,7 @@ function DashboardPage() {
         </div>
 
         {/* Selector de período */}
-        <div className="flex bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+        <div className="grid grid-cols-3 md:flex bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm w-full md:w-auto">
           {[7, 30, 90].map((d) => (
             <button
               key={d}
