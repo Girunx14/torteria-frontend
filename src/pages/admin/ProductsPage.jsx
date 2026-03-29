@@ -1,17 +1,24 @@
 import { useState } from "react"
 import { Plus, Pencil, Trash2, ImageOff, ToggleLeft, ToggleRight } from "lucide-react"
 import { useProducts, useDeleteProduct, useUpdateProduct } from "../../hooks/useProducts"
+import { useCategories } from "../../hooks/useCategories"
 import ProductModal from "../../components/admin/ProductModal"
 import LoadingSpinner from "../../components/ui/LoadingSpinner"
 import ErrorMessage from "../../components/ui/ErrorMessage"
 
 function ProductsPage() {
   const { data: products = [], isLoading, isError } = useProducts({ only_available: false })
+  const { data: categories = [] } = useCategories()
   const deleteProduct = useDeleteProduct()
   const updateProduct = useUpdateProduct()
 
   const [showModal, setShowModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState(null)
+
+  const getCategoryName = (categoryId) => {
+    const cat = categories.find((c) => c.id === categoryId)
+    return cat?.name || `Cat. ${categoryId}`
+  }
 
   const handleEdit = (product) => {
     setEditingProduct(product)
@@ -122,7 +129,7 @@ function ProductsPage() {
                     </td>
                     <td className="px-6 py-4">
                       <span className="inline-flex px-2.5 py-1 bg-[#FDF6EC] text-[#C0392B] text-xs font-medium rounded-lg">
-                        Cat. {product.category_id}
+                        {getCategoryName(product.category_id)}
                       </span>
                     </td>
                     <td className="px-6 py-4">

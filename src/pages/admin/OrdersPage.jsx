@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Plus, Eye, Trash2 } from "lucide-react"
 import { useOrders, useUpdateOrderStatus, useDeleteOrder } from "../../hooks/useOrders"
+import { useProducts } from "../../hooks/useProducts"
 import NewOrderModal from "../../components/admin/NewOrderModal"
 import LoadingSpinner from "../../components/ui/LoadingSpinner"
 import ErrorMessage from "../../components/ui/ErrorMessage"
@@ -26,8 +27,14 @@ function OrdersPage() {
   const { data: orders = [], isLoading, isError } = useOrders(
     statusFilter ? { order_status: statusFilter } : {}
   )
+  const { data: products = [] } = useProducts({ only_available: false })
   const updateStatus = useUpdateOrderStatus()
   const deleteOrder = useDeleteOrder()
+
+  const getProductName = (productId) => {
+    const prod = products.find((p) => p.id === productId)
+    return prod?.name || `Producto #${productId}`
+  }
 
   const handleStatusChange = (order, newStatus) => {
     updateStatus.mutate({ id: order.id, status: newStatus })
@@ -138,7 +145,7 @@ function OrdersPage() {
                       </td>
                       <td className="px-6 py-4">
                         <p className="text-sm text-gray-600 truncate max-w-xs">
-                          {order.items?.map((i) => `${i.quantity}x item`).join(", ") || "—"}
+                          {order.items?.map((i) => `${i.quantity}x ${getProductName(i.product_id)}`).join(", ") || "—"}
                         </p>
                         {order.notes && (
                           <p className="text-xs text-gray-400 truncate max-w-xs">Nota: {order.notes}</p>
@@ -184,7 +191,7 @@ function OrdersPage() {
                             {order.items?.map((item, idx) => (
                               <div key={idx} className="bg-white px-3 py-2 rounded-xl text-xs border border-gray-100 shadow-sm">
                                 <span className="font-bold text-[#C0392B]">{item.quantity}x</span>
-                                <span className="text-gray-700 ml-1">Producto #{item.product_id}</span>
+                                <span className="text-gray-700 ml-1">{getProductName(item.product_id)}</span>
                                 <span className="text-gray-400 ml-2">${Number(item.unit_price).toFixed(2)} c/u</span>
                               </div>
                             ))}
