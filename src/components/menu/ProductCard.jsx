@@ -2,7 +2,7 @@ import { ShoppingBag } from "lucide-react"
 
 function ProductCard({ product }) {
   const imageUrl = product.image_url
-    ? `${import.meta.env.VITE_API_URL}${product.image_url}`
+    ? (product.image_url.startsWith('http') ? product.image_url : `${import.meta.env.VITE_API_URL}${product.image_url}`)
     : null
 
   return (

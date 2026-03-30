@@ -110,7 +110,7 @@ function ProductsPage() {
                         <div className="w-12 h-12 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
                           {product.image_url ? (
                             <img
-                              src={`${import.meta.env.VITE_API_URL}${product.image_url}`}
+                              src={product.image_url.startsWith('http') ? product.image_url : `${import.meta.env.VITE_API_URL}${product.image_url}`}
                               alt={product.name}
                               className="w-full h-full object-cover"
                             />

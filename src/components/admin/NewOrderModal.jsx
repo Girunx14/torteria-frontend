@@ -96,7 +96,7 @@ function NewOrderModal({ onClose }) {
                                     <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
                                         {product.image_url ? (
                                             <img
-                                                src={`${import.meta.env.VITE_API_URL}${product.image_url}`}
+                                                src={product.image_url.startsWith('http') ? product.image_url : `${import.meta.env.VITE_API_URL}${product.image_url}`}
                                                 alt={product.name}
                                                 className="w-full h-full object-cover"
                                             />

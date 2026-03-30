@@ -33,7 +33,7 @@ function ProductModal({ product = null, onClose }) {
                 is_available: product.is_available ?? true,
             })
             if (product.image_url) {
-                setImagePreview(`${import.meta.env.VITE_API_URL}${product.image_url}`)
+                setImagePreview(product.image_url.startsWith('http') ? product.image_url : `${import.meta.env.VITE_API_URL}${product.image_url}`)
             }
         }
     }, [product])
