@@ -77,10 +77,10 @@ function NewOrderModal({ onClose }) {
                     </button>
                 </div>
 
-                <div className="flex flex-1 overflow-hidden">
+                <div className="flex flex-col md:flex-row flex-1 overflow-hidden min-h-0">
 
                     {/* Lista de productos */}
-                    <div className="flex-1 overflow-y-auto p-4 border-r border-gray-100">
+                    <div className="flex-1 overflow-y-auto p-4 border-b md:border-b-0 md:border-r border-gray-100 min-h-0">
                         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
                             Productos disponibles
                         </p>
@@ -118,7 +118,7 @@ function NewOrderModal({ onClose }) {
                     </div>
 
                     {/* Resumen de la orden */}
-                    <div className="w-72 flex flex-col p-4">
+                    <div className="w-full md:w-72 h-[45%] md:h-auto flex-shrink-0 flex flex-col p-4 bg-gray-50/50 md:bg-transparent">
                         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
                             Orden actual
                         </p>
